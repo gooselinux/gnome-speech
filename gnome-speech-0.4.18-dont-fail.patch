@@ -1,0 +1,31 @@
+diff -up gnome-speech-0.4.18/gnome-speech/speaker.c.dont-fail gnome-speech-0.4.18/gnome-speech/speaker.c
+--- gnome-speech-0.4.18/gnome-speech/speaker.c.dont-fail	2008-04-17 14:02:05.000000000 -0400
++++ gnome-speech-0.4.18/gnome-speech/speaker.c	2008-04-17 14:02:11.000000000 -0400
+@@ -188,8 +188,11 @@ impl_getParameterValueDescription (Porta
+   
+ 	g_return_val_if_fail (s, NULL);
+ 	priv = find_parameter (s, name);
+-	g_return_val_if_fail (priv, NULL);
+-	g_return_val_if_fail (priv->value_descriptions, NULL);
++
++	if (priv == NULL || priv->value_descriptions == NULL) {
++                return NULL;
++        }
++
+ 	for (tmp = priv->value_descriptions; tmp; tmp = tmp->next)
+ 	{
+ 		d = (ValueDescription *) tmp->data;
+@@ -368,8 +371,11 @@ speaker_set_parameter (Speaker *s,
+ 	ParameterPrivate *priv;
+ 
+ 	priv = find_parameter (s, name);
+-	g_return_val_if_fail (priv, FALSE);
+-	g_return_val_if_fail (priv->set_func, FALSE);
++
++        if (priv == NULL || priv->set_func == NULL) {
++                return FALSE;
++        }
++
+ 	if (value >= priv->min && value <= priv->max) {
+ 		priv->current = value;
+ 		s->parameter_refresh = TRUE;

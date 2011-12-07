@@ -1,0 +1,11 @@
+--- gnome-speech-0.3.5/configure.in~	2005-01-04 13:46:42.286611900 -0500
++++ gnome-speech-0.3.5/configure.in	2005-01-04 13:49:41.152841598 -0500
+@@ -36,8 +36,6 @@
+ AC_PROG_INSTALL
+ AC_ISC_POSIX
+ 
+-GNOME_COMMON_INIT
+-GNOME_COMPILE_WARNINGS(maximum)
+ AC_SUBST(CFLAGS)
+ 
+ 
